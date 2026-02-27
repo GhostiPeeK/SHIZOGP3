@@ -2,10 +2,16 @@
 import asyncio
 import logging
 import os
+import sys
+
+# Добавляем путь к папке проекта
+sys.path.append(os.path.dirname(__file__))
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from dotenv import load_dotenv
 
+# Теперь импортируем из папки bot
 from bot.handlers import router
 from bot.database import init_db
 
