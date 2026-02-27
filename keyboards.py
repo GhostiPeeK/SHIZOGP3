@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-def get_main_keyboard(vip_chat_link):
+def get_main_keyboard():
     """Главное меню"""
     buttons = [
         [InlineKeyboardButton(text="🛒 Магазин", callback_data="shop")],
@@ -9,8 +9,10 @@ def get_main_keyboard(vip_chat_link):
             InlineKeyboardButton(text="💰 Баланс", callback_data="balance"),
             InlineKeyboardButton(text="🤝 Рефералы", callback_data="referral")
         ],
-        [InlineKeyboardButton(text="👑 VIP чат", url=vip_chat_link)],
-        [InlineKeyboardButton(text="📊 Профиль", callback_data="profile")],
+        [
+            InlineKeyboardButton(text="👑 VIP", callback_data="vip"),
+            InlineKeyboardButton(text="📊 Профиль", callback_data="profile")
+        ],
         [InlineKeyboardButton(text="ℹ️ Помощь", callback_data="help")]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
@@ -18,27 +20,14 @@ def get_main_keyboard(vip_chat_link):
 def get_back_keyboard():
     """Кнопка назад"""
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="◀ Назад", callback_data="main_menu")]
+        [InlineKeyboardButton(text="◀ Назад в меню", callback_data="main_menu")]
     ])
 
-def get_shop_keyboard(skins):
-    """Клавиатура магазина"""
-    builder = InlineKeyboardBuilder()
-    
-    for skin in skins:
-        builder.row(InlineKeyboardButton(
-            text=f"{skin['name']} ({skin['quality']}) - {skin['price']}💰",
-            callback_data=f"buy_{skin['id']}"
-        ))
-    
-    builder.row(InlineKeyboardButton(text="◀ Назад", callback_data="main_menu"))
-    return builder.as_markup()
-
-def get_vip_keyboard(is_vip):
+def get_vip_keyboard(is_vip=False):
     """Клавиатура для VIP"""
     if is_vip:
         return InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="👑 Войти в VIP чат", callback_data="vip_chat")],
+            [InlineKeyboardButton(text="👑 VIP чат", url="https://t.me/+r3rxYlBjbTYyMDY6")],
             [InlineKeyboardButton(text="◀ Назад", callback_data="main_menu")]
         ])
     else:
